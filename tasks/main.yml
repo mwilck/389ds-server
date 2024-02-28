@@ -20,6 +20,7 @@
   changed_when: false
   failed_when: dirsrv_tls_enforced_initially_binds.rc != 0 and dirsrv_tls_enforced_initially_binds.rc != 1
   tags: [ dirsrv_tls, dirsrv_cert, dirsrv_schema ]  # Needed for all these tags
+  check_mode: false
 
 # If nsslapd-minssf isn't set at all, it defaults to 0.
 # So we have to check if it's defined...
@@ -29,6 +30,7 @@
   changed_when: false
   failed_when: dirsrv_tls_enforced_initially_ssf_set.rc != 0 and dirsrv_tls_enforced_initially_ssf_set.rc != 1
   tags: [ dirsrv_tls, dirsrv_cert, dirsrv_schema ]  # Needed for all these tags
+  check_mode: false
 
 # ...and if it's 0 or something else.
 - name: Check if TLS is enforced (minimum SSF)
@@ -37,6 +39,7 @@
   changed_when: false
   failed_when: dirsrv_tls_enforced_initially_ssf.rc != 0 and dirsrv_tls_enforced_initially_ssf.rc != 1
   tags: [ dirsrv_tls, dirsrv_cert, dirsrv_schema ]  # Needed for all these tags
+  check_mode: false
 
 - name: Prepare LDAP auth data
   tags: [ dirsrv_tls, dirsrv_cert, dirsrv_schema ]  # Needed for all these tags
