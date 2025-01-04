@@ -63,7 +63,15 @@
         that:
           - not dirsrv_sasl_result.changed
           - "'desc' in dirsrv_sasl_result.details"
-          - "{{ dirsrv_sasl_result.details }}.desc == 'No such attribute'"
+
+    - name: Get details of failed operation
+      set_fact:
+        __dirsrv_sasl_details: "{{ dirsrv_sasl_result.details }}"
+
+    - name: Assert that task failed successfully, part 2
+      assert:
+        that:
+          - __dirsrv_sasl_details.desc == 'No such attribute'
 
 - block:
     # With 389DS version 1.4.X the option to delete this attribute to reset it to the default value has been removed.
@@ -111,9 +119,17 @@
 
   rescue:
     # Same as above
-    - name: Assert that task failed successfully
+    - name: Assert that task failed successfully, part 1
       assert:
         that:
           - not dirsrv_pwdstorage_result.changed
           - "'desc' in dirsrv_pwdstorage_result.details"
-          - "{{ dirsrv_pwdstorage_result.details }}.desc == 'No such attribute'"
+
+    - name: Get details of failed operation
+      set_fact:
+        __dirsrv_pwdstorage_details: "{{ dirsrv_pwdstorage_result.details }}"
+
+    - name: Assert that task failed successfully, part 2
+      assert:
+        that:
+          - __dirsrv_pwdstoratge_details.desc == 'No such attribute'
